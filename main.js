@@ -2,12 +2,26 @@ import './style.css'
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { Object3D } from 'three';
 
 const loader = new GLTFLoader();
-let myObj = Object3D;
+let myObj = Object;
+
+function moveCamera() {
+  const t = document.body.getBoundingClientRect().top;
+  moon.rotation.x += 0.05;
+  moon.rotation.y += 0.075;
+  moon.rotation.z += 0.05;
+
+  chadCube.rotation.y += 0.01;
+  chadCube.rotation.z += 0.01;
+
+  camera.position.z = t * -0.02 + 5;
+  camera.position.x = t * -0.0002;
+  camera.rotation.y = t * -0.0002;
+}
 
 
+document.body.onscroll = moveCamera;
 loader.load('color-dodecahedron.glb', function (gltf) {
   myObj = gltf.scene;
   gltf.scene.scale.set(15, 15, 15);
@@ -22,9 +36,8 @@ function animate() {
   myObj.rotation.x += 0.002;
   myObj.rotation.y += 0.001;
   myObj.rotation.z += 0.002;
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  
 
-  controls.update();
 
   renderer.render(scene, camera);
 }
@@ -48,17 +61,15 @@ const renderer = new THREE.WebGL1Renderer({
 });
 const ambientLight = new THREE.AmbientLight(0xffffff);
 scene.add(ambientLight);
-const controls = new OrbitControls(camera, renderer.domElement);
-const gridHelper = new THREE.GridHelper(200, 50);
-scene.add(gridHelper);
 Array(200).fill().forEach(addStar);
 //adding background texture
 const spaceTexture = new THREE.TextureLoader().load('space-bg.jpg');
 scene.background = spaceTexture;
+renderer.setSize(window.innerWidth, window.innerHeight);
 
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
-camera.position.setZ(30);
+camera.position.setZ(5);
 
 //original attempt at 3d object, after being dissastisfied set out to import self made blender model
 // const geometry = new THREE.DodecahedronGeometry(13);
@@ -78,9 +89,12 @@ const moonTexture = new THREE.TextureLoader().load('moon.jpg');
 const normTexture = new THREE.TextureLoader().load('rocky_texture_199750.jpg');
 
 const moon = new THREE.Mesh(
-  new THREE.SphereGeometry(3, 32, 32),
+  new THREE.SphereGeometry(5, 32, 32),
   new THREE.MeshStandardMaterial({ map: moonTexture, normalMap: normTexture })
 );
+
+moon.position.z = 30;
+moon.position.setX(-30);
 
 scene.add(moon);
 
