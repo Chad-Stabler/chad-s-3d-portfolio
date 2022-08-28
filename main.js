@@ -6,11 +6,30 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 const loader = new GLTFLoader();
 let myObj = Object;
 
+function moonInertia(r) {
+  if (r > .02) {
+    setTimeout(() => {
+      moon.rotation.x += r / 10;
+      moon.rotation.y +=  r / 10 * 1.5;
+      moon.rotation.z += r / 10;
+      moonInertia(r - 0.001);
+
+    }, '0005');
+  } else if (r > 0) {
+    setTimeout(() => {
+      moon.rotation.x += r / 10;
+      moon.rotation.y +=  r / 10 * 1.5;
+      moon.rotation.z += r / 10;
+      moonInertia(r - 0.0002);
+
+    }, '0005');
+  } else return;
+}
+//0.05
 function moveCamera() {
   const t = document.body.getBoundingClientRect().top;
-  moon.rotation.x += 0.05;
-  moon.rotation.y += 0.075;
-  moon.rotation.z += 0.05;
+  moonInertia(0.05);
+  
 
   chadCube.rotation.y += 0.01;
   chadCube.rotation.z += 0.01;
