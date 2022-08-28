@@ -41,7 +41,7 @@ function moveCamera() {
 
 
 document.body.onscroll = moveCamera;
-loader.load('color-dodecahedron.glb', function (gltf) {
+loader.load('/public/color-dodecahedron.glb', function (gltf) {
   myObj = gltf.scene;
   gltf.scene.scale.set(15, 15, 15);
   scene.add(gltf.scene);
@@ -82,7 +82,7 @@ const ambientLight = new THREE.AmbientLight(0xffffff);
 scene.add(ambientLight);
 Array(200).fill().forEach(addStar);
 //adding background texture
-const spaceTexture = new THREE.TextureLoader().load('space-bg.jpg');
+const spaceTexture = new THREE.TextureLoader().load('/public/space-bg.jpg');
 scene.background = spaceTexture;
 renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -96,7 +96,7 @@ camera.position.setZ(5);
 // const torus = new THREE.Mesh(geometry, material);
 // scene.add(torus);
 
-const chadTexture = new THREE.TextureLoader().load('chad.jpg');
+const chadTexture = new THREE.TextureLoader().load('/public/chad.jpg');
 
 const chadCube = new THREE.Mesh(
   new THREE.BoxGeometry(3, 3, 3),
@@ -104,8 +104,8 @@ const chadCube = new THREE.Mesh(
 );
 scene.add(chadCube);
 
-const moonTexture = new THREE.TextureLoader().load('moon.jpg');
-const normTexture = new THREE.TextureLoader().load('rocky_texture_199750.jpg');
+const moonTexture = new THREE.TextureLoader().load('/public/moon.jpg');
+const normTexture = new THREE.TextureLoader().load('/public/rocky_texture_199750.jpg');
 
 const moon = new THREE.Mesh(
   new THREE.SphereGeometry(5, 32, 32),
