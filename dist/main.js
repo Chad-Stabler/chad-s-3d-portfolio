@@ -5,6 +5,10 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 const loader = new GLTFLoader();
 let myObj = Object;
+const chadUrl = '/public/chad.jpg';
+const dodo = '/public/color-dodecahedron.glb';
+const moonURL = '/public/moon.jpg';
+const bg = '/public/space-bg.jpg'
 
 function moonInertia(r) {
   if (r > .02) {
